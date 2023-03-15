@@ -2,21 +2,34 @@ import { defineStore } from "pinia";
 
 type TodoItem = { name: string; complete: boolean; id?: string };
 export const useTodoStore = defineStore("todos", {
-  persist: {
-    key: "hahahah",
-    beforeRestore() {
-      console.log("beforeRestore");
+  persist: [
+    {
+      beforeRestore() {
+        console.log("beforeRestore");
+      },
+      afterRestore() {
+        console.log("afterRestore");
+      },
+      paths: ["list", "a.b.c.d", "a.d.e"],
     },
-    afterRestore() {
-      console.log("afterRestore");
-    },
-    paths: ["a.b.c.d"],
-  },
+  ],
   state() {
     return {
       title: "todo",
       list: [] as TodoItem[],
-      a: { b: { c: { d: { name: 1 } } } },
+      a: {
+        b: {
+          c: {
+            d: 4444,
+          },
+        },
+        d: {
+          e: 1,
+        },
+        f: {
+          g: 343,
+        },
+      },
     };
   },
   getters: {
