@@ -3,11 +3,13 @@ highlight: a11y-dark
 theme: nico
 ---
 
+![image.jpeg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/85ff1a568ef746b09e7a406fa251e966~tplv-k3u1fbpfcp-watermark.image?)
 
-> 嘿JYM大家好，好久不见甚是想念. 不知道大家都用上vue3的全家桶，反正我没有，在公司还是vue2一把梭。不过为了跟得上速度，花了一点把文档给仔细翻阅了一遍，同时了解了一下如何实现一个Pinia插件，为了巩固了解如何实现一个插件,找了github开源的一个持久化存储的插件`pinia-plugin-persistedstate`来学习,也把相关源码看完并对其进行了流程绘制和实现总结。希望这篇文章能够给你的学习带来帮助
+
+> 嘿JYM大家好，好久不见甚是想念. 不知道大家都用上`Pinia`没有，反正我没有，在公司还是`vue2+vuex`一把梭。不过为了跟得上速度，花了一点把文档给翻阅了一遍，同时了解了一下如何实现一个Pinia插件，为了巩固找了github开源的一个持久化存储的插件`pinia-plugin-persistedstate`来学习,也把相关源码看完并对其进行了流程绘制和实现总结。希望这篇文章能够给你的学习带来帮助
 
 ## Pinia-Plugin-Persistedstate
-简单介绍一下：[pinia-plugin-persistedstate](https://prazdevs.github.io/pinia-plugin-persistedstate/zh/)是一个`pinia`状态同步存储的一个插件，可以自定义存储方式，自定义序列化配置和存储目标，并且可以对每个`store`进行单独配置。
+简单介绍一下：[pinia-plugin-persistedstate](https://prazdevs.github.io/pinia-plugin-persistedstate/zh/)是一个`pinia`状态同步存储的一个插件，可以自定义存储方式，自定义序列化配置和存储目标，可以对每个`store`进行单独配置也支持默认全局配置。
 
 ## 实现逻辑分析图
 
@@ -146,7 +148,7 @@ function persistState(state: StateTree, key: string) {
 
 
 ```
-### [github分支： base](url)
+### [github分支： base](https://github.com/CodeListener/pinia-plugin-persistedstate-analyse/tree/base)
 
 > 你可以复制以上代码到插件文件里面，尝试一下，或者到我的`github`克隆一下项目通过一个小todolList demo来进行理解。每实现一个小功能都会新增一个分支方便你切换查看
 
@@ -377,7 +379,7 @@ function persistState(state, option) {
   }
 }
 ```
-### [github分支： options](url)
+### [github分支： options](https://github.com/CodeListener/pinia-plugin-persistedstate-analyse/tree/options)
 
 
 ### 全局参数
@@ -432,11 +434,11 @@ let persistOptions = (Array.isArray(persist) ? persist.map((p) => normalizeOptio
   };
 });
 ```
-### [github分支： globalOptions](url)
+### [github分支： main](https://github.com/CodeListener/pinia-plugin-persistedstate-analyse)
 
 
 ### 其他
-可能有些朋友有看过`pinia-plugin-persistedstate`的源码发现，还差`$persist`和`$hydrate`呀，其实这并没有什么难度，在这里可以让其他朋友自行实现一下(没错，我太懒了哈哈哈)，或者到github查看下官方实现，在这里就不展开讲了了~嘿嘿。
+可能有看过`pinia-plugin-persistedstate`的源码的朋友会发现还差`$persist`和`$hydrate`呀，其实这并没有什么难度，在这里可以让大家自行实现一下(没错，我太懒了哈哈哈)，或者到github查看下官方实现，在这里就不展开讲了了~嘿嘿。
 
 
 ## 总结
