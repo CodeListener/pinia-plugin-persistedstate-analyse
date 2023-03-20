@@ -15,15 +15,16 @@ interface Persistence {
   debug: boolean;
 }
 
-export default function createPersistedState() {
+export default function createPersistedState(globalOptons: PersistedStateFactoryOptions = {}) {
+  const { auto = false } = globalOptons || {};
   return (context: PiniaPluginContext) => {
     const { options, store } = context;
-    const { persist } = options;
+    const { persist = auto } = options;
     if (!persist) return;
     // 由于需要支持Array和object，我们统一将其转换成Array方便后面处理
     // 这个方法你可以理解为persist类型进行参数规范化，同时在第一个
     // 参数获取不到值时到第二个参数获取，由于还没考虑到全局配置，这里先忽略normalizeOptions的第二个参数
-    let persistOptions = (Array.isArray(persist) ? persist.map((p) => normalizeOptions(p, {})) : [normalizeOptions(persist, {})]).map((option) => {
+    let persistOptions = (Array.isArray(persist) ? persist.map((p) => normalizeOptions(p, globalOptons)) : [normalizeOptions(persist, globalOptons)]).map((option) => {
       const {
         storage = localStorage,
         beforeRestore,
@@ -41,7 +42,7 @@ export default function createPersistedState() {
         beforeRestore,
         afterRestore,
         serializer,
-        key,
+        key: (globalOptons.key ?? ((k) => k))(key),
         paths,
         debug,
       };
