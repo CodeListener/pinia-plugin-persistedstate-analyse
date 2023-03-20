@@ -1,7 +1,3 @@
-# Pinia-Plugin-Persistedstate-Study
-
-## [Pinia-Plugin] 动动手你也能实现一个持久化存储插件
-
 ---
 highlight: a11y-dark
 theme: nico
@@ -409,7 +405,8 @@ store配置 --> 全局配置 --> 默认配置
 ```typescript
 // persistedstate/index.ts
 export default function createPersistedState(globalOptions) { 
-    const { auto } = globalOptions
+    // 默认每一个都不要持久化存储
+    const { auto = false } = globalOptions
     return (context: PiniaPluginContext) => { 
         const { options, store } = context; 
         // 设置到persist默认值即可
