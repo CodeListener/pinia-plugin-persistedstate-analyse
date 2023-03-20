@@ -67,7 +67,7 @@ export default function createPersistedState() {
 
 // 解析数据同步到state
 function hydrateStore(store: Store, option: Persistence) {
-  const { storage, serializer , debug} = option;
+  const { storage, serializer, debug } = option;
   const fromStorage = storage.getItem(option.key);
   if (fromStorage) {
     try {
